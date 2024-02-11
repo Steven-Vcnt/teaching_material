@@ -1,4 +1,10 @@
 -- Databricks notebook source
+SELECT * FROM 
+ 
+  bronze.ticker_value tv
+
+-- COMMAND ----------
+
 CREATE OR REPLACE TEMPORARY VIEW ticker_value_update AS
 -- melt in SQL the database
 SELECT 
@@ -8,7 +14,7 @@ FROM
   bronze.ticker_value tv
 PIVOT (
   MAX(CAST(tv.value AS DECIMAL(20,2)))
-  FOR tv.Value_Type IN ('1. open' AS Open, '4. close' AS Close, '2. high' as High, '3. low' as Low, '5. volume' as Volume)
+  FOR Value_Type IN ('1. open' AS Open, '4. close' AS Close, '2. high' as High, '3. low' as Low, '5. volume' as Volume)
 )
 LEFT JOIN (SELECT MIN(CAST(variable AS DATE)) AS min_variable, Ticker 
           FROM 

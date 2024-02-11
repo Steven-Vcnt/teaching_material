@@ -72,6 +72,7 @@ except:
 
 # COMMAND ----------
 
+ticker_metadata = ticker_metadata.rename(columns={"1. Information": "Information", "2. Symbol": "Symbol", "3. Last Refreshed": "Last_Refreshed", "4. Output Size" : "Output_Size", "5. Time Zone" : "Time_Zone"})
 sp_ticker_metadata=spark.createDataFrame(ticker_metadata)
 sp_ticker_metadata.distinct().createOrReplaceTempView('ticker_metadata_temp')
 
@@ -86,3 +87,7 @@ sp_ticker_metadata.distinct().createOrReplaceTempView('ticker_metadata_temp')
 # MAGIC   WHEN NOT MATCHED THEN
 # MAGIC INSERT
 # MAGIC   *
+
+# COMMAND ----------
+
+
